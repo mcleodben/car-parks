@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('parking_spaces', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('car_park_id')->constrained('car_parks')->onDelete('cascade');
             $table->timestamps();
         });
     }
