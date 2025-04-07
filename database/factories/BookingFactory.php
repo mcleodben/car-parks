@@ -31,7 +31,7 @@ class BookingFactory extends Factory
             'car_park_id'  => $carPark->id,
             'date_from'    => $startDate->format('Y-m-d'),
             'date_to'      => $endDate->format('Y-m-d'),
-            'total_price'  => 14.98,
+            'total_price'  => $carPark->calculatePrice($startDate, $endDate),
         ];
     }
 }
