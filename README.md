@@ -244,7 +244,7 @@ DELETE /api/bookings/{id}
 Authorization: Bearer your-auth-token
 ```
 **Response:**
-```json
+```
 No response body is returned.
 ```
 
