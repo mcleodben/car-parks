@@ -128,6 +128,20 @@ class BookingControllerTest extends TestCase
         );
     }
 
+    public function testCantUpdateSomeoneElsesBooking(): void
+    {
+        $user = User::factory()->create();
+        $booking = Booking::factory()->create(['user_id' => $user->id]);
+
+        $payload = [
+            'date_from' => $booking->date_from,
+            'date_to'   => Carbon::parse($booking->date_to)->addDays(2)->format('Y-m-d'),
+        ];
+
+        $this->actingAs($this->user)->patchJson('/api/bookings/' . $booking->id, $payload)
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
     public function testUpdateBookingFailsWhenCarParkIsFull(): void
     {
         $dateFrom = now();
@@ -172,6 +186,6 @@ class BookingControllerTest extends TestCase
         $booking = Booking::factory()->create(['user_id' => $otherUser->id]);
 
         $this->actingAs($this->user)->delete('/api/bookings/' . $booking->id)
-            ->assertStatus(Response::HTTP_NO_CONTENT);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }
