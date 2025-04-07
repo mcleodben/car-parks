@@ -26,11 +26,24 @@ class CarPark extends Model
         return $this->hasMany(Booking::class);
     }
 
+    public function prices(): HasMany
+    {
+        return $this->hasMany(Price::class);
+    }
+
     public function totalSpaces(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->parkingSpaces()->count()
         );
+    }
+
+    public function calculatePrice(Carbon $from, Carbon $to): float
+    {
+        return $this->prices()
+            ->whereDate('date', '>=', $from)
+            ->whereDate('date', '<=', $to)
+            ->sum('price');
     }
 
     public function checkAvailability(Carbon $from, Carbon $to, ?int $excludeId = null): int
