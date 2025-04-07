@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Price;
 use App\Models\Booking;
 use App\Models\CarPark;
 use App\Models\ParkingSpace;
@@ -20,7 +23,7 @@ class CarParkControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->carPark = CarPark::factory()->create();
+        $this->setUpCarPark();
     }
 
     public function testShowCarPark(): void
@@ -33,6 +36,7 @@ class CarParkControllerTest extends TestCase
                 'id'               => $this->carPark->id,
                 'total_spaces'     => 10,
                 'available_spaces' => 10,
+                'total_price'      => '£10.00',
             ]);
     }
 
@@ -60,6 +64,26 @@ class CarParkControllerTest extends TestCase
                 'id'               => $this->carPark->id,
                 'total_spaces'     => 3,
                 'available_spaces' => 0,
+                'total_price'      => '£80.00',
             ]);
+    }
+
+    private function setUpCarPark(): void
+    {
+        $this->carPark = CarPark::factory()->create();
+
+        $dateFrom = now();
+        $dateTo   = now()->addDays(10);
+
+        $currentDate = $dateFrom->copy();
+        while ($currentDate <= $dateTo) {
+            Price::factory()->create([
+                'car_park_id' => $this->carPark->id,
+                'date'        => $currentDate->format('Y-m-d'),
+                'price'       => 10.00,
+            ]);
+
+            $currentDate->addDay();
+        }
     }
 }
