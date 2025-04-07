@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\BookingResource;
 use App\Http\Requests\CreateBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class BookingController extends Controller
 {
+    use AuthorizesRequests;
+
     private const NO_AVAILABLE_DATES_MESSAGE = 'No available spaces for the selected dates';
 
     /**
@@ -23,6 +26,8 @@ class BookingController extends Controller
      */
     public function store(CreateBookingRequest $request): JsonResponse
     {
+        $this->authorize('create', Booking::class);
+
         $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
 
@@ -49,6 +54,8 @@ class BookingController extends Controller
      */
     public function show(Booking $booking): BookingResource
     {
+        $this->authorize('view', $booking);
+
         return new BookingResource($booking);
     }
 
@@ -57,6 +64,8 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingRequest $request, Booking $booking): BookingResource|JsonResponse
     {
+        $this->authorize('update', $booking);
+
         $carPark = CarPark::findOrFail($booking->car_park_id);
 
         $availableSpaces = $carPark->checkAvailability(
@@ -79,6 +88,8 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking): Response
     {
+        $this->authorize('delete', $booking);
+
         $booking->delete();
 
         return response()->noContent();
