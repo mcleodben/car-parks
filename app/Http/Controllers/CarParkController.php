@@ -25,7 +25,7 @@ class CarParkController extends Controller
 
         foreach ($carParks as $carPark) {
             $carPark['available_spaces'] = $carPark->checkAvailability($dateFrom, $dateTo);
-            $carPark['total_price'] = 51.23;
+            $carPark['total_price'] = $carPark->calculatePrice($dateFrom, $dateTo);
         }
 
         return CarParkResource::collection($carParks);
@@ -43,7 +43,7 @@ class CarParkController extends Controller
         $dateTo = isset($data['date_to']) ? Carbon::parse($data['date_to']) : now();
 
         $carPark['available_spaces'] = $carPark->checkAvailability($dateFrom, $dateTo);
-        $carPark['total_price'] = 29.32;
+        $carPark['total_price'] = $carPark->calculatePrice($dateFrom, $dateTo);
 
         return response()->json(new CarParkResource($carPark));
     }
