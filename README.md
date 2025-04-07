@@ -92,26 +92,28 @@ GET /api/carpark
 
 **Response Example:**
 ```json
-[
-    {
-        "id": 1,
-        "name": "Gatwick Airport Parking",
-        "total_spaces": 100,
-        "available_spaces": 20,
-        "date_from": "Sunday, 1st June 2025",
-        "date_to": "Monday, 16th June 2025",
-        "total_price": "£244.00"
-    },
-    {
-        "id": 2,
-        "name": "Heathrow Terminal 1 Parking",
-        "total_spaces": 50,
-        "available_spaces": 10,
-        "date_from": "Sunday, 1st June 2025",
-        "date_to": "Monday, 16th June 2025",
-        "total_price": "£244.00"
-    }
-]
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Gatwick Airport Parking",
+            "total_spaces": 100,
+            "available_spaces": 20,
+            "date_from": "Sunday, 1st June 2025",
+            "date_to": "Monday, 16th June 2025",
+            "total_price": "£244.00"
+        },
+        {
+            "id": 2,
+            "name": "Heathrow Terminal 1 Parking",
+            "total_spaces": 50,
+            "available_spaces": 10,
+            "date_from": "Sunday, 1st June 2025",
+            "date_to": "Monday, 16th June 2025",
+            "total_price": "£244.00"
+        }
+    ]
+}
 ```
 
 ---
