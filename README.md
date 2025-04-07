@@ -71,7 +71,7 @@ Authorization: Bearer your-auth-token
 **Response:**
 ```json
 {
-    "message": "Successfully logged out"
+    "message": "Logged out successfully"
 }
 ```
 
@@ -245,69 +245,17 @@ Authorization: Bearer your-auth-token
 ```
 **Response:**
 ```json
-{
-    "message": "Booking deleted successfully"
-}
-```
-
----
-
-## **Check-in & Check-out**
-
-### **Check-in to parking**
-**Endpoint:**
-```http
-POST /api/bookings/{id}/checkin
-```
-**Headers:**
-```http
-Authorization: Bearer your-auth-token
-```
-**Response:**
-```json
-{
-    "message": "Check-in successful",
-    "checked_in_at": "2024-06-01 08:00:00"
-}
-```
-
----
-
-### **Check-out from parking**
-**Endpoint:**
-```http
-POST /api/bookings/{id}/checkout
-```
-**Headers:**
-```http
-Authorization: Bearer your-auth-token
-```
-**Response:**
-```json
-{
-    "message": "Check-out successful",
-    "checked_out_at": "2024-06-07 18:00:00"
-}
-```
-
----
-
-## **Error Handling**
-### **Example Error Response:**
-```json
-{
-    "message": "Validation failed",
-    "errors": {
-        "date_from": ["The date from field is required."],
-        "date_to": ["The date to field is required."]
-    }
-}
+No response body is returned.
 ```
 
 ---
 
 ## **Notes**
-- **All API responses are JSON**
 - **Ensure to include `Authorization: Bearer your-auth-token` in protected endpoints**
 - **Dates should be in `YYYY-MM-DD` format**
+
+## **Improvements**
+- **Separate some logic into service classes.**
+- **Add types of parking spaces. Disabled, EV etc.**
+- **Add checkin/checkout functionality.**
 
