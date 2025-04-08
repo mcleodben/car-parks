@@ -1,3 +1,13 @@
+# ⚙️ Project Setup
+
+To get started, run:
+
+```bash
+composer run setup
+```
+
+Select `yes` when it asks you if you want to create a database.
+
 # API Documentation
 
 ## **Authentication**
